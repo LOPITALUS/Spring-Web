@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Книги</title>
+  <link rel="stylesheet" href="http://localhost:8080/css/styleHome.css">
+</head>
+<body>
+<header>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="http://localhost:8080/catalog">Книги</a></li>
+      <li><a href="http://localhost:8080/about">Новости</a></li>
+      <li><a href="http://localhost:8080/profile">Профиль</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <table class="books-table">
+    <thead>
+    <tr>
+      <th>Автор</th>
+      <th>Название</th>
+      <th>Описание</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${book.getAuthor()}"></td>
+      <td th:text="${book.getTitle()}"></td>
+      <td th:text="${book.getAnnotation()}"></td>
+      <td>
+        <img th:src="@{'/' + ${book.getId()} + '/image'}"/>
+      </td>
+      <div th:if="${!taken}">
+        <td >
+          <form th:action="@{'addFavoriteBook/' + ${book.getId()}}" method="post" >
+            <button>Добавить в избранное</button>
+          </form>
+        </td>
+          </script>
+      </div>
+    </tr>
+    </tbody>
+  </table>
+</main>
+</body>
+</html>

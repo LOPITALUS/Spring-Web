@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="http://localhost:8080/css/styleHome.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="http://localhost:8080/catalog">Книги</a></li>
+            <li><a href="http://localhost:8080/about">Новости</a></li>
+            <li><a href="http://localhost:8080/profile">Профиль</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="avatar-container">
+            <img th:src="@{'/' + ${user.getId()} + '/avatarImage'}" alt="User Avatar" class="avatar-image" />
+        </div>
+        <h1>Добро пожаловать, <span th:text="${user.getFirstName()}"></span> <span th:text="${user.getLastName()}"></span> по прозвищу <span th:text="${user.getUsername()}"></span></h1>
+    </div>
+    <div class="user-info">
+    </div>
+
+    <div class="admin-panels">
+        <div class="admin-panel" th:if="${role == 2 or role == 3}">
+            <div><a type="submit" href="post-upload" class="btn btn-primary">Добавить новость</a></div>
+            <div><a type="submit" href="book-upload" class="btn btn-primary">Добавить книгу</a></div>
+        </div>
+
+        <div class="advanced-admin-panel" th:if="${role == 3}">
+            <div><a type="submit" href="user-edit" class="btn btn-primary">Управление пользователями</a></div>
+        </div>
+    </div>
+
+    <div class="favorite-books">
+        <div><a type="submit" href="favoriteBooks" class="btn btn-primary">Избранное</a></div>
+    </div>
+
+    <form action="/exit" method="post" enctype="multipart/form-data">
+        <button type="submit" class="logout-button btn btn-danger">Выход</button>
+    </form>
+</div>
+
+
+</body>
+</html>

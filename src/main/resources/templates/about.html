@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Новости</title>
+    <link rel="stylesheet" href="http://localhost:8080/css/styleHome.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="http://localhost:8080/catalog">Книги</a></li>
+            <li><a href="http://localhost:8080/about">Новости</a></li>
+            <li><a href="http://localhost:8080/profile">Профиль</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <table class="books-table">
+        <thead>
+        <tr>
+            <th>Автор</th>
+            <th>Дата</th>
+            <th>Название</th>
+            <th>Содержание</th>
+            <th>Фото</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td th:text="${post.getCreator()}"></td>
+            <td th:text="${post.getCreatedAt()}"></td>
+            <td th:text="${post.getTitle()}"></td>
+            <td th:text="${post.getContent()}"></td>
+            <td>
+                <img th:src="@{'/' + ${post.getId()} + '/postImage'}"
+                     style="max-width: 500px; max-height: 1500px;" />
+            </td>
+                <div class="admin-panel" th:if="${role == 2 or role == 3}">
+                    <td><a th:text="Открыть" th:href="@{'/post/' + ${post.getId()}}"></a></td>
+                </div>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<div class="stats">
+    <th:block th:include="/timeFragment"></th:block>
+    <p>Количество посещений: <span th:text="${count}"></span></p>
+</div>
+</body>
+</html>
